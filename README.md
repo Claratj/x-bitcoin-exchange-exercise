@@ -68,6 +68,10 @@ We will evaluate your submission based on:
 * **Component Architecture:** How well is the application structured into components?
 * **Attention to Detail:** Overall polish and execution.
 
+## Additional Points
+* Responsiveness (How does your application look on mobile devices?)
+* CSS skillset - try to add at least one animation written in CSS.
+
 ## Tips for Success
 
 * **Focus on the Core:** Ensure the main requirements are met before adding extra features.
