@@ -1,20 +1,9 @@
-import { BuySellToggle } from "../BuySellToggle/BuySellToggle";
-import { ConfirmButton } from "../ConfirmButton/ConfirmButton";
-import { CurrencyInput } from "../CurrencyInput/CurrencyInput";
 import { useExchangeLogic } from "../../hooks/useExchangeLogic";
 
 export const SwapForm = () => {
   const {
-    mode,
-    exchangeRate,
-    isLoading,
-    btcAmount,
-    usdAmount,
     isSuccess,
-    toggleMode,
-    handleBtcChange,
-    handleUsdChange,
-    confirmSwap,
+
     resetFields,
     setIsSuccess,
   } = useExchangeLogic();
@@ -22,7 +11,7 @@ export const SwapForm = () => {
   if (isSuccess) {
     return (
       <div>
-        <h2>✅ Swap Confirmed!</h2>
+        <h2>Swap Confirmed!</h2>
         <button
           onClick={() => {
             setIsSuccess(false);
