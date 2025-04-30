@@ -1,10 +1,15 @@
+import { ExchangePage } from "./pages/ExchangePage/ExchangePage";
 import "./App.css";
-import { SwapForm } from "./components/SwapForm/SwapForm";
 
 function App() {
   return (
     <div className="app">
-      <SwapForm />
+      <header className="app-header">
+        <h1>Bitcoin Exchange</h1>
+      </header>
+      <main>
+        <ExchangePage />
+      </main>
     </div>
   );
 }
