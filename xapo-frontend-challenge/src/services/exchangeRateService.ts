@@ -1,21 +1,21 @@
 import axios from "axios";
 
-const API_URL = "https://api.coindesk.com/v1/bpi/currentprice.json";
+const API_URL =
+  "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd";
+const DEFAULT_RATE = 50000; // Default rate in case of API failure
 
 export interface ExchangeRateResponse {
-  bpi: {
-    USD: {
-      rate_float: number;
-    };
+  bitcoin: {
+    usd: number;
   };
 }
 
 export const fetchExchangeRate = async (): Promise<number> => {
   try {
     const response = await axios.get<ExchangeRateResponse>(API_URL);
-    return response.data.bpi.USD.rate_float;
+    return response.data.bitcoin.usd;
   } catch (error) {
     console.error("Error fetching exchange rate:", error);
-    throw new Error("Failed to fetch exchange rate");
+    return DEFAULT_RATE; // Return default rate instead of throwing error
   }
 };
