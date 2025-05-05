@@ -1,0 +1,71 @@
+:root {
+  /* Theme colors */
+  --primary-bg: #1c1731;
+  --secondary-bg: rgb(255 255 255 / 8%);
+  --card-bg: rgb(45 41 66 / 50%);
+  --input-bg: rgb(255 255 255 / 5%);
+  --text-primary: #fff;
+  --text-secondary: #9ca3af;
+  --accent-color: #646cff;
+  --accent-hover: #535bf2;
+  --error-color: #f56565;
+  --success-color: #4ade80;
+  --divider-color: rgb(160 174 192 / 20%);
+  --hover-bg: rgb(255 255 255 / 10%);
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Border radius */
+  --border-radius-sm: 0.5rem;
+  --border-radius-md: 1rem;
+  --border-radius-lg: 1.5rem;
+
+  /* Font sizes */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 1.75rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 3.2rem;
+
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease-in-out;
+  --transition-slow: 0.4s;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 5%);
+  --shadow-md: 0 4px 6px rgb(0 0 0 / 10%);
+  --shadow-lg: 0 4px 12px rgb(0 0 0 / 5%);
+
+  /* Z-index */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+
+  color: var(--text-primary);
+  font-weight: var(--font-weight-normal);
+  line-height: 1.5;
+  background-color: var(--primary-bg);
+
+  /* Font settings */
+  font-family: system-ui, -apple-system, "Open Sans", "Helvetica Neue",
+    sans-serif;
+}
