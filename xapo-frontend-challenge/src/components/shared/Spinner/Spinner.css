@@ -1,0 +1,92 @@
+.spinner {
+  /* Layout */
+  position: relative;
+  display: inline-block;
+
+  /* Box model */
+  width: 24px;
+  height: 24px;
+}
+
+.spinner__circle {
+  /* Layout */
+  position: absolute;
+
+  /* Box model */
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent;
+  border-radius: 50%;
+
+  /* Motion */
+  animation: spin 0.8s linear infinite;
+
+  /* Visual */
+  border-top-color: var(--accent-color);
+}
+
+.spinner__circle::before,
+.spinner__circle::after {
+  /* Layout */
+  position: absolute;
+
+  /* Box model */
+  border: 2px solid transparent;
+  border-radius: 50%;
+
+  /* Visual */
+  content: "";
+}
+
+.spinner__circle::before {
+  /* Visual */
+  opacity: 0.7;
+
+  /* Motion */
+  animation: spin 1.2s linear infinite;
+  border-top-color: var(--accent-color);
+
+  /* Box model */
+  inset: 2px;
+}
+
+.spinner__circle::after {
+  /* Visual */
+  opacity: 0.4;
+
+  /* Motion */
+  animation: spin 1.6s linear infinite;
+  border-top-color: var(--accent-color);
+
+  /* Box model */
+  inset: 6px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner--small {
+  /* Box model */
+  width: 16px;
+  height: 16px;
+}
+
+.spinner--large {
+  /* Box model */
+  width: 32px;
+  height: 32px;
+}
+
+.spinner--white .spinner__circle,
+.spinner--white .spinner__circle::before,
+.spinner--white .spinner__circle::after {
+  /* Visual */
+  border-top-color: #fff;
+}
