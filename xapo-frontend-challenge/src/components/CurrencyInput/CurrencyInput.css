@@ -150,13 +150,9 @@
 }
 
 .currency-input__error {
-  /* Layout */
-  position: absolute;
-  bottom: -1.75rem;
-  left: 0;
-
   /* Box model */
   padding: var(--spacing-xs) var(--spacing-sm);
+  margin-top: var(--spacing-md);
   border-radius: var(--border-radius-sm);
   background-color: rgb(245 101 101 / 10%);
 
