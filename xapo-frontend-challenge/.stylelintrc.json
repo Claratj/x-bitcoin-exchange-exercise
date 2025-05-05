@@ -5,56 +5,84 @@
     "selector-class-pattern": "^[a-z][a-z0-9]*(?:-[a-z0-9]+)*(?:__[a-z0-9]+(?:-[a-z0-9]+)*)?(?:--[a-z0-9]+(?:-[a-z0-9]+)*)?$",
     "no-descending-specificity": null,
     "order/properties-order": [
-      [
-        "position",
-        "top",
-        "right",
-        "bottom",
-        "left",
-        "z-index",
-        "display",
-        "flex",
-        "flex-grow",
-        "flex-shrink",
-        "flex-basis",
-        "flex-direction",
-        "flex-wrap",
-        "align-items",
-        "justify-content",
-        "grid",
-        "grid-template-columns",
-        "grid-template-rows",
-        "box-sizing",
-        "width",
-        "min-width",
-        "max-width",
-        "height",
-        "min-height",
-        "max-height",
-        "margin",
-        "padding",
-        "border",
-        "border-radius",
-        "background",
-        "color",
-        "font",
-        "font-size",
-        "font-weight",
-        "line-height",
-        "text-align",
-        "text-transform",
-        "box-shadow",
-        "opacity",
-        "transition",
-        "transform",
-        "animation",
-        "overflow",
-        "visibility",
-        "white-space",
-        "cursor"
-      ],
       {
-        "unspecified": "bottomAlphabetical"
+        "groupName": "Layout",
+        "properties": [
+          "position",
+          "top",
+          "right",
+          "bottom",
+          "left",
+          "z-index",
+          "display",
+          "flex",
+          "flex-grow",
+          "flex-shrink",
+          "flex-basis",
+          "flex-direction",
+          "flex-wrap",
+          "align-items",
+          "justify-content",
+          "grid",
+          "grid-template-columns",
+          "grid-template-rows"
+        ]
+      },
+      {
+        "groupName": "Box model",
+        "properties": [
+          "box-sizing",
+          "width",
+          "min-width",
+          "max-width",
+          "height",
+          "min-height",
+          "max-height",
+          "margin",
+          "padding",
+          "gap"
+        ]
+      },
+      {
+        "groupName": "Visual",
+        "properties": [
+          "border",
+          "border-radius",
+          "background",
+          "background-color",
+          "background-clip",
+          "color",
+          "box-shadow",
+          "opacity",
+          "backdrop-filter",
+          "-webkit-text-fill-color"
+        ]
+      },
+      {
+        "groupName": "Typography",
+        "properties": [
+          "font",
+          "font-size",
+          "font-weight",
+          "line-height",
+          "text-align",
+          "text-transform",
+          "letter-spacing"
+        ]
+      },
+      {
+        "groupName": "Motion",
+        "properties": ["transition", "transform", "animation"]
+      },
+      {
+        "groupName": "Misc",
+        "properties": [
+          "overflow",
+          "visibility",
+          "white-space",
+          "cursor",
+          "outline"
+        ]
       }
     ]
   }

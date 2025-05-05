@@ -50,28 +50,28 @@
   display: flex;
   align-items: center;
 
+  /* Box model */
+  gap: var(--spacing-xs);
+
   /* Visual */
   color: var(--text-primary);
 
   /* Typography */
   font-size: 1.25rem;
   font-weight: 500;
-
-  /* Box model */
-  gap: var(--spacing-xs);
 }
 
 .currency-input__symbol-text {
   /* Box model */
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--border-radius-sm);
+  background-color: rgb(255 255 255 / 10%);
 
   /* Visual */
   color: var(--text-secondary);
 
   /* Typography */
   font-size: 0.875rem;
-  background-color: rgb(255 255 255 / 10%);
 }
 
 .currency-input__input {
@@ -129,6 +129,7 @@
   padding: var(--spacing-xs) var(--spacing-sm);
   border: none;
   border-radius: var(--border-radius-sm);
+  background-color: rgb(226 255 111 / 10%);
 
   /* Visual */
   color: var(--accent-color);
@@ -140,7 +141,6 @@
   /* Motion */
   transition: all 0.2s ease;
   cursor: pointer;
-  background-color: rgb(226 255 111 / 10%);
   margin-left: var(--spacing-sm);
 }
 
@@ -158,13 +158,13 @@
   /* Box model */
   padding: var(--spacing-xs) var(--spacing-sm);
   border-radius: var(--border-radius-sm);
+  background-color: rgb(245 101 101 / 10%);
 
   /* Visual */
   color: var(--error-color);
 
   /* Typography */
   font-size: 0.75rem;
-  background-color: rgb(245 101 101 / 10%);
 }
 
 /* Styles for sell/receive mode */

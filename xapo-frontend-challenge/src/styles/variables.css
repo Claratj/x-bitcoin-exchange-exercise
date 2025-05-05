@@ -62,10 +62,10 @@
   --z-index-popover: 1060;
   --z-index-tooltip: 1070;
 
+  background-color: var(--primary-bg);
   color: var(--text-primary);
   font-weight: var(--font-weight-normal);
   line-height: 1.5;
-  background-color: var(--primary-bg);
 
   /* Font settings */
   font-family: system-ui, -apple-system, "Open Sans", "Helvetica Neue",

@@ -5,12 +5,12 @@
 
   /* Box model */
   padding: var(--spacing-xl);
+  gap: var(--spacing-lg);
   border-radius: var(--border-radius-lg);
-  color: var(--text-primary);
 
   /* Visual */
   background-color: var(--card-bg);
-  gap: var(--spacing-lg);
+  color: var(--text-primary);
 }
 
 .swap-form__header {
@@ -41,12 +41,12 @@
 
   /* Box model */
   padding: var(--spacing-lg);
+  gap: var(--spacing-md);
   border: 1px solid var(--divider-color);
   border-radius: var(--border-radius-lg);
 
   /* Visual */
   background-color: var(--card-bg);
-  gap: var(--spacing-md);
 }
 
 .swap-form__inputs--reversed {
@@ -69,6 +69,7 @@
   /* Box model */
   padding: var(--spacing-lg);
   border-radius: var(--border-radius-md);
+  background-color: var(--input-bg);
 
   /* Visual */
   opacity: 1;
@@ -76,7 +77,6 @@
   /* Motion */
   transition: all 0.3s ease-in-out;
   transform: translateY(0);
-  background-color: var(--input-bg);
 }
 
 .swap-separator {
@@ -165,12 +165,12 @@
   width: 100%;
   padding: var(--spacing-md);
   border-radius: var(--border-radius-md);
+  background-color: rgb(245 101 101 / 10%);
 
   /* Visual */
   color: var(--error-color);
   font-size: 0.875rem;
   text-align: center;
-  background-color: rgb(245 101 101 / 10%);
 }
 
 .swap-form__confirm {
@@ -179,29 +179,28 @@
   padding: var(--spacing-lg);
   border: none;
   border-radius: var(--border-radius-md);
+
+  /* Visual */
+  background-color: var(--accent-color);
   color: var(--primary-bg);
+  box-shadow: var(--shadow-sm);
   font-size: var(--font-size-md);
   font-weight: var(--font-weight-semibold);
-  box-shadow: var(--shadow-sm);
 
   /* Motion */
   transition: all var(--transition-fast);
 
   /* Misc */
   cursor: pointer;
-
-  /* Visual */
-  background-color: var(--accent-color);
 }
 
 .swap-form__confirm:hover:not(:disabled) {
+  /* Visual */
+  background-color: var(--accent-hover);
   box-shadow: var(--shadow-md);
 
   /* Motion */
   transform: translateY(-2px);
-
-  /* Visual */
-  background-color: var(--accent-hover);
 }
 
 .swap-form__confirm:focus {
@@ -220,6 +219,9 @@
 .swap-form__confirm:disabled {
   /* Box model */
   border: 2px solid var(--divider-color);
+
+  /* Visual */
+  background-color: var(--disabled-bg);
   color: var(--disabled-color);
   box-shadow: none;
   opacity: 0.7;
@@ -229,9 +231,6 @@
 
   /* Misc */
   cursor: not-allowed;
-
-  /* Visual */
-  background-color: var(--disabled-bg);
 }
 
 .swap-form--loading {
@@ -307,6 +306,9 @@
   padding: 0.75rem;
   border: 2px solid #e2e8f0;
   border-radius: 0.5rem;
+
+  /* Visual */
+  background-color: transparent;
   color: #4a5568;
   font-weight: 600;
 
@@ -315,9 +317,6 @@
 
   /* Misc */
   cursor: pointer;
-
-  /* Visual */
-  background-color: transparent;
 }
 
 .swap-form__mode-button:hover {
@@ -328,10 +327,9 @@
 }
 
 .swap-form__mode-button--active {
-  color: #fff;
-
   /* Visual */
   background-color: #4299e1;
+  color: #fff;
   border-color: #4299e1;
 }
 
@@ -355,12 +353,12 @@
   max-width: 600px;
   margin: 0 auto;
   padding: 2rem;
+  gap: 1rem;
   border-radius: 1rem;
-  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 
   /* Visual */
   background-color: #fff;
-  gap: 1rem;
+  box-shadow: 0 4px 6px rgb(0 0 0 / 10%);
 }
 
 .swap-loading__spinner {
@@ -388,11 +386,11 @@
   margin: 0 auto;
   padding: 2rem;
   border-radius: 16px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
 
   /* Visual */
   background-color: #fff;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 5%);
+  text-align: center;
 }
 
 .swap-success h2 {
@@ -411,6 +409,9 @@
   padding: 1rem 2rem;
   border: none;
   border-radius: 12px;
+
+  /* Visual */
+  background-color: var(--accent-color);
   color: white;
   font-size: 1rem;
   font-weight: 600;
@@ -420,18 +421,15 @@
 
   /* Misc */
   cursor: pointer;
-
-  /* Visual */
-  background-color: var(--accent-color);
   margin-top: 1.5rem;
 }
 
 .swap-success__button:hover {
-  /* Motion */
-  transform: translateY(-1px);
-
   /* Visual */
   background-color: #0047e0;
+
+  /* Motion */
+  transform: translateY(-1px);
 }
 
 .swap-success__button:focus {
