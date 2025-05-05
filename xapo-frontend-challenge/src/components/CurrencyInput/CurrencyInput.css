@@ -1,0 +1,187 @@
+.currency-input__divider {
+  /* Box model */
+  height: 1px;
+  margin: 1rem 0;
+
+  /* Visual */
+  background-color: rgb(160 174 192 / 20%);
+}
+
+.currency-input__label {
+  /* Layout */
+  display: block;
+
+  /* Visual */
+  color: var(--text-secondary);
+
+  /* Typography */
+  font-size: 0.875rem;
+  font-weight: 400;
+
+  /* Box model */
+  margin-bottom: var(--spacing-sm);
+}
+
+.currency-input__container {
+  /* Layout */
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* Box model */
+  border-radius: var(--border-radius-md);
+
+  /* Visual */
+  background-color: transparent;
+}
+
+.currency-input__left {
+  /* Layout */
+  display: flex;
+  align-items: center;
+
+  /* Box model */
+  gap: var(--spacing-sm);
+}
+
+.currency-input__symbol {
+  /* Layout */
+  display: flex;
+  align-items: center;
+
+  /* Visual */
+  color: var(--text-primary);
+
+  /* Typography */
+  font-size: 1.25rem;
+  font-weight: 500;
+
+  /* Box model */
+  gap: var(--spacing-xs);
+}
+
+.currency-input__symbol-text {
+  /* Box model */
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+
+  /* Visual */
+  color: var(--text-secondary);
+
+  /* Typography */
+  font-size: 0.875rem;
+  background-color: rgb(255 255 255 / 10%);
+}
+
+.currency-input__input {
+  /* Box model */
+  width: 100%;
+  max-width: 200px;
+  padding: 0;
+  border: none;
+
+  /* Visual */
+  background: none;
+  color: var(--text-primary);
+
+  /* Typography */
+  font-size: 2rem;
+  font-weight: 500;
+  text-align: right;
+  outline: none;
+}
+
+.currency-input__input::placeholder {
+  /* Visual */
+  color: rgb(255 255 255 / 20%);
+}
+
+.currency-input__balance {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* Visual */
+  color: var(--text-secondary);
+
+  /* Typography */
+  font-size: 0.875rem;
+
+  /* Box model */
+  margin-top: var(--spacing-sm);
+}
+
+.currency-input__balance-right {
+  /* Layout */
+  display: flex;
+  align-items: center;
+}
+
+.currency-input__balance-amount {
+  /* Box model */
+  margin-left: var(--spacing-xs);
+}
+
+.currency-input__max {
+  /* Box model */
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border: none;
+  border-radius: var(--border-radius-sm);
+
+  /* Visual */
+  color: var(--accent-color);
+
+  /* Typography */
+  font-size: 0.75rem;
+  font-weight: 500;
+
+  /* Motion */
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background-color: rgb(226 255 111 / 10%);
+  margin-left: var(--spacing-sm);
+}
+
+.currency-input__max:hover {
+  /* Visual */
+  background-color: rgb(226 255 111 / 15%);
+}
+
+.currency-input__error {
+  /* Layout */
+  position: absolute;
+  bottom: -1.75rem;
+  left: 0;
+
+  /* Box model */
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-sm);
+
+  /* Visual */
+  color: var(--error-color);
+
+  /* Typography */
+  font-size: 0.75rem;
+  background-color: rgb(245 101 101 / 10%);
+}
+
+/* Styles for sell/receive mode */
+.currency-input__header {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  /* Box model */
+  margin-bottom: var(--spacing-sm);
+}
+
+.currency-input__mode {
+  /* Visual */
+  color: var(--text-secondary);
+
+  /* Typography */
+  font-size: 0.75rem;
+}
