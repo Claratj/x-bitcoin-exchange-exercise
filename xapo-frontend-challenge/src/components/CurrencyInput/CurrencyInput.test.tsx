@@ -11,7 +11,8 @@ describe("CurrencyInput", () => {
     currency: "BTC" as const,
     exchangeMode: "buy" as const,
     isBaseCurrency: true,
-    label: "Test Label",
+    balance: "1000",
+    label: "BTC Amount",
   };
 
   it("renders with default props", () => {
@@ -38,9 +39,7 @@ describe("CurrencyInput", () => {
   });
 
   it("shows correct label for BTC in sell mode", () => {
-    render(
-      <CurrencyInput {...defaultProps} exchangeMode="sell" label="BTC Amount" />
-    );
+    render(<CurrencyInput {...defaultProps} exchangeMode="sell" />);
     expect(screen.getByText("You sell")).toBeInTheDocument();
   });
 
@@ -68,9 +67,9 @@ describe("CurrencyInput", () => {
   });
 
   it("displays balance when provided", () => {
-    render(<CurrencyInput {...defaultProps} balance="1.5" />);
+    render(<CurrencyInput {...defaultProps} />);
     expect(screen.getByText("Balance:")).toBeInTheDocument();
-    expect(screen.getByText("1.5 BTC")).toBeInTheDocument();
+    expect(screen.getByText("1000 BTC")).toBeInTheDocument();
   });
 
   it("displays error message when provided", () => {
@@ -81,9 +80,7 @@ describe("CurrencyInput", () => {
 
   it("calls onMaxClick when MAX button is clicked", () => {
     const onMaxClick = vi.fn();
-    render(
-      <CurrencyInput {...defaultProps} balance="1.5" onMaxClick={onMaxClick} />
-    );
+    render(<CurrencyInput {...defaultProps} onMaxClick={onMaxClick} />);
 
     const maxButton = screen.getByText("MAX");
     fireEvent.click(maxButton);
@@ -114,16 +111,16 @@ describe("CurrencyInput", () => {
     expect(container.firstChild).toHaveClass("currency-input custom-class");
   });
 
-  it("shows correct currency symbol", () => {
+  it("shows correct currency symbol and name", () => {
     render(<CurrencyInput {...defaultProps} />);
     expect(screen.getByText("₿")).toBeInTheDocument();
-    expect(screen.getByText(/bitcoin/i)).toBeInTheDocument();
+    expect(screen.getByText("Bitcoin")).toBeInTheDocument();
 
     render(
       <CurrencyInput {...defaultProps} currency="USD" label="USD Amount" />
     );
     expect(screen.getByText("$")).toBeInTheDocument();
-    expect(screen.getByText(/usd/i)).toBeInTheDocument();
+    expect(screen.getByText("USD")).toBeInTheDocument();
   });
 
   it("handles max decimals correctly", () => {
@@ -134,6 +131,7 @@ describe("CurrencyInput", () => {
         onChange={onChange}
         maxDecimals={2}
         currency="USD"
+        label="USD Amount"
       />
     );
     const input = screen.getByRole("textbox");
@@ -146,5 +144,10 @@ describe("CurrencyInput", () => {
     render(<CurrencyInput {...defaultProps} value="" />);
     const input = screen.getByRole("textbox");
     expect(input).toHaveAttribute("placeholder", "0.00");
+  });
+
+  it("shows error for insufficient balance", () => {
+    render(<CurrencyInput {...defaultProps} value="2000" />);
+    expect(screen.getByText("Insufficient balance")).toBeInTheDocument();
   });
 });

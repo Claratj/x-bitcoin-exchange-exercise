@@ -53,13 +53,12 @@ describe("useExchangeLogic", () => {
 
     await waitFor(() => {
       expect(result.current.exchangeRate).toBe(50000);
+      expect(result.current.exchangeMode).toBe("buy");
+      expect(result.current.btcValue).toBe("");
+      expect(result.current.usdValue).toBe("");
+      expect(result.current.error).toBeNull();
+      expect(result.current.isSuccess).toBe(false);
     });
-
-    expect(result.current.exchangeMode).toBe("buy");
-    expect(result.current.btcValue).toBe("");
-    expect(result.current.usdValue).toBe("");
-    expect(result.current.error).toBeNull();
-    expect(result.current.isSuccess).toBe(false);
   });
 
   it("handles BTC input changes", async () => {
@@ -69,8 +68,10 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("1", "BTC");
     });
 
-    expect(result.current.btcValue).toBe("1");
-    expect(result.current.usdValue).toBe("50000");
+    await waitFor(() => {
+      expect(result.current.btcValue).toBe("1");
+      expect(result.current.usdValue).toBe("50000");
+    });
   });
 
   it("handles USD input changes", async () => {
@@ -80,8 +81,10 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("50000", "USD");
     });
 
-    expect(result.current.usdValue).toBe("50000");
-    expect(result.current.btcValue).toBe("1");
+    await waitFor(() => {
+      expect(result.current.usdValue).toBe("50000");
+      expect(result.current.btcValue).toBe("1");
+    });
   });
 
   it("validates minimum BTC amount from BTC input", async () => {
@@ -91,7 +94,9 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("0.0000001", "BTC");
     });
 
-    expect(result.current.error).toBe("Minimum BTC amount is 0.000001");
+    await waitFor(() => {
+      expect(result.current.error).toBe("Minimum BTC amount is 0.000001");
+    });
   });
 
   it("validates maximum BTC amount from BTC input", async () => {
@@ -101,7 +106,9 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("101", "BTC");
     });
 
-    expect(result.current.error).toBe("Maximum BTC amount is 100");
+    await waitFor(() => {
+      expect(result.current.error).toBe("Maximum BTC amount is 100");
+    });
   });
 
   it("validates minimum BTC amount from USD input", async () => {
@@ -111,7 +118,9 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("0.01", "USD");
     });
 
-    expect(result.current.error).toBe("Minimum BTC amount is 0.000001");
+    await waitFor(() => {
+      expect(result.current.error).toBe("Minimum BTC amount is 0.000001");
+    });
   });
 
   it("validates maximum BTC amount from USD input", async () => {
@@ -121,7 +130,9 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("6000000", "USD");
     });
 
-    expect(result.current.error).toBe("Maximum BTC amount is 100");
+    await waitFor(() => {
+      expect(result.current.error).toBe("Maximum BTC amount is 100");
+    });
   });
 
   it("validates balance limits in buy mode", async () => {
@@ -131,11 +142,17 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("60000", "USD");
     });
 
-    act(() => {
-      result.current.executeExchange();
+    await waitFor(() => {
+      expect(result.current.usdValue).toBe("60000");
     });
 
-    expect(result.current.error).toBe("Insufficient USD balance");
+    act(() => {
+      result.current.handleBlur("USD");
+    });
+
+    await waitFor(() => {
+      expect(result.current.error).toBe("Insufficient USD balance");
+    });
   });
 
   it("validates balance limits in sell mode", async () => {
@@ -145,15 +162,25 @@ describe("useExchangeLogic", () => {
       result.current.switchExchangeMode();
     });
 
+    await waitFor(() => {
+      expect(result.current.exchangeMode).toBe("sell");
+    });
+
     act(() => {
       result.current.handleAmountChange("2", "BTC");
     });
 
-    act(() => {
-      result.current.executeExchange();
+    await waitFor(() => {
+      expect(result.current.btcValue).toBe("2");
     });
 
-    expect(result.current.error).toBe("Insufficient BTC balance");
+    act(() => {
+      result.current.handleBlur("BTC");
+    });
+
+    await waitFor(() => {
+      expect(result.current.error).toBe("Insufficient BTC balance");
+    });
   });
 
   it("executes exchange successfully", async () => {
@@ -166,14 +193,29 @@ describe("useExchangeLogic", () => {
       result.current.handleAmountChange("1", "BTC");
     });
 
+    await waitFor(() => {
+      expect(result.current.btcValue).toBe("1");
+      expect(result.current.usdValue).toBe("50000");
+    });
+
+    act(() => {
+      result.current.handleBlur("BTC");
+    });
+
+    await waitFor(() => {
+      expect(result.current.error).toBeNull();
+    });
+
     act(() => {
       result.current.executeExchange();
     });
 
-    expect(result.current.isSuccess).toBe(true);
-    expect(onBalanceChange).toHaveBeenCalledWith({
-      btc: mockProps.balance.btc + 1,
-      usd: mockProps.balance.usd - 50000,
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+      expect(onBalanceChange).toHaveBeenCalledWith({
+        btc: mockProps.balance.btc + 1,
+        usd: mockProps.balance.usd - 50000,
+      });
     });
   });
 
@@ -184,9 +226,11 @@ describe("useExchangeLogic", () => {
       result.current.resetFields();
     });
 
-    expect(result.current.btcValue).toBe("");
-    expect(result.current.usdValue).toBe("");
-    expect(result.current.error).toBeNull();
+    await waitFor(() => {
+      expect(result.current.btcValue).toBe("");
+      expect(result.current.usdValue).toBe("");
+      expect(result.current.error).toBeNull();
+    });
   });
 
   it("fetches and sets exchange rate on mount", async () => {
@@ -221,6 +265,8 @@ describe("useExchangeLogic", () => {
       result.current.setIsSuccess(true);
     });
 
-    expect(result.current.isSuccess).toBe(true);
+    await waitFor(() => {
+      expect(result.current.isSuccess).toBe(true);
+    });
   });
 });

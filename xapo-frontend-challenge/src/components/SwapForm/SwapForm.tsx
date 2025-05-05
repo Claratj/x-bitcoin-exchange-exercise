@@ -174,7 +174,7 @@ export function SwapForm({ balance: initialBalance }: SwapFormProps) {
           decimalStep={isReversed ? "0.01" : "0.000001"}
           maxDecimals={isReversed ? 2 : 6}
           className={`swap-form__input first ${isSwapping ? "swapping" : ""}`}
-          error={error || undefined}
+          error={!isReversed && error ? error : undefined}
           balance={getFirstInputBalance()}
           onMaxClick={isReversed ? handleMaxUsd : handleMaxBtc}
           exchangeMode={exchangeMode}
@@ -193,7 +193,7 @@ export function SwapForm({ balance: initialBalance }: SwapFormProps) {
           decimalStep={isReversed ? "0.000001" : "0.01"}
           maxDecimals={isReversed ? 6 : 2}
           className={`swap-form__input second ${isSwapping ? "swapping" : ""}`}
-          error={error || undefined}
+          error={isReversed && error ? error : undefined}
           balance={getSecondInputBalance()}
           onMaxClick={isReversed ? handleMaxBtc : handleMaxUsd}
           exchangeMode={exchangeMode}

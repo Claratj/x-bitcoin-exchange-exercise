@@ -12,33 +12,33 @@ describe("BuySellToggle", () => {
 
   it("renders in buy mode by default", () => {
     render(<BuySellToggle {...defaultProps} />);
-    const toggle = screen.getByRole("switch");
-    expect(toggle).toHaveAttribute("aria-checked", "true");
-    expect(toggle).toHaveAttribute("aria-label", "Exchange mode: buy");
+    const checkbox = screen.getByRole("switch");
+    expect(checkbox).toBeChecked();
+    expect(checkbox).toHaveAttribute("aria-label", "Exchange mode: buy");
   });
 
-  it("renders in sell mode when mode prop is sell", () => {
+  it("renders in sell mode", () => {
     render(<BuySellToggle {...defaultProps} mode="sell" />);
-    const toggle = screen.getByRole("switch");
-    expect(toggle).toHaveAttribute("aria-checked", "false");
-    expect(toggle).toHaveAttribute("aria-label", "Exchange mode: sell");
+    const checkbox = screen.getByRole("switch");
+    expect(checkbox).not.toBeChecked();
+    expect(checkbox).toHaveAttribute("aria-label", "Exchange mode: sell");
   });
 
   it("calls onToggle when clicked", () => {
     render(<BuySellToggle {...defaultProps} />);
-    const toggle = screen.getByRole("switch");
-    fireEvent.click(toggle);
-    expect(defaultProps.onToggle).toHaveBeenCalled();
+    const checkbox = screen.getByRole("switch");
+    fireEvent.click(checkbox);
+    expect(defaultProps.onToggle).toHaveBeenCalledTimes(1);
   });
 
-  it("has correct accessibility attributes", () => {
+  it("has correct ARIA attributes", () => {
     render(<BuySellToggle {...defaultProps} />);
-    const region = screen.getByRole("region");
-    expect(region).toHaveAttribute("aria-label", "Exchange mode selection");
-
-    const toggle = screen.getByRole("switch");
-    expect(toggle).toHaveAttribute("type", "checkbox");
-    expect(toggle).toHaveAttribute("aria-checked", "true");
+    expect(screen.getByRole("region")).toHaveAttribute(
+      "aria-label",
+      "Exchange mode selection"
+    );
+    const checkbox = screen.getByRole("switch");
+    expect(checkbox).toHaveAttribute("aria-checked", "true");
   });
 
   it("has correct visual elements", () => {

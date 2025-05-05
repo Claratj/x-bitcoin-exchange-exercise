@@ -58,6 +58,21 @@ export const useExchangeLogic = ({
     setError(null);
   }, []);
 
+  const validateBalance = useCallback(
+    (btc: number, usd: number) => {
+      if (exchangeMode === "buy" && usd > balance.usd) {
+        setError("Insufficient USD balance");
+        return false;
+      }
+      if (exchangeMode === "sell" && btc > balance.btc) {
+        setError("Insufficient BTC balance");
+        return false;
+      }
+      return true;
+    },
+    [exchangeMode, balance]
+  );
+
   const handleAmountChange = useCallback(
     (value: string, currency: Currency) => {
       setError(null);
@@ -70,15 +85,20 @@ export const useExchangeLogic = ({
         }
 
         const formatted = formatDecimal(value, 6);
-        if (formatted === null) return;
+        if (formatted === null) {
+          setError("Invalid BTC amount");
+          return;
+        }
 
         const btc = parseFloat(formatted);
         if (btc < MIN_BTC) {
           setError("Minimum BTC amount is 0.000001");
+          setUsdValue("");
           return;
         }
         if (btc > MAX_BTC) {
           setError("Maximum BTC amount is 100");
+          setUsdValue("");
           return;
         }
 
@@ -92,16 +112,21 @@ export const useExchangeLogic = ({
         }
 
         const formatted = formatDecimal(value, 2);
-        if (formatted === null) return;
+        if (formatted === null) {
+          setError("Invalid USD amount");
+          return;
+        }
 
         const usd = parseFloat(formatted);
         const btc = usd / exchangeRate;
         if (btc < MIN_BTC) {
           setError("Minimum BTC amount is 0.000001");
+          setBtcValue("");
           return;
         }
         if (btc > MAX_BTC) {
           setError("Maximum BTC amount is 100");
+          setBtcValue("");
           return;
         }
 
@@ -110,6 +135,20 @@ export const useExchangeLogic = ({
       }
     },
     [exchangeRate]
+  );
+
+  const handleBlur = useCallback(
+    (currency: Currency) => {
+      if (!btcValue || !usdValue) return;
+
+      const btc = parseFloat(btcValue);
+      const usd = parseFloat(usdValue);
+
+      if (isNaN(btc) || isNaN(usd)) return;
+
+      validateBalance(btc, usd);
+    },
+    [btcValue, usdValue, validateBalance]
   );
 
   const executeExchange = useCallback(() => {
@@ -121,13 +160,7 @@ export const useExchangeLogic = ({
       return;
     }
 
-    if (exchangeMode === "buy" && usd > balance.usd) {
-      setError("Insufficient USD balance");
-      return;
-    }
-
-    if (exchangeMode === "sell" && btc > balance.btc) {
-      setError("Insufficient BTC balance");
+    if (error) {
       return;
     }
 
@@ -144,7 +177,7 @@ export const useExchangeLogic = ({
 
     setIsLoading(false);
     setIsSuccess(true);
-  }, [btcValue, usdValue, exchangeMode, balance, onBalanceChange]);
+  }, [btcValue, usdValue, exchangeMode, balance, onBalanceChange, error]);
 
   const resetFields = useCallback(() => {
     setBtcValue("");
@@ -163,6 +196,7 @@ export const useExchangeLogic = ({
     isLoadingRate,
     switchExchangeMode,
     handleAmountChange,
+    handleBlur,
     executeExchange,
     resetFields,
     setIsSuccess,

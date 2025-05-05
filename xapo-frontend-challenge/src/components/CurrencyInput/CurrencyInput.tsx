@@ -56,7 +56,13 @@ export const CurrencyInput: React.FC<CurrencyInputProps> = ({
 
   const getError = () => {
     if (error) return error;
-    if (balance && value && parseFloat(value) > parseFloat(balance)) {
+    // Only show insufficient balance error for the base currency input
+    if (
+      isBaseCurrency &&
+      balance &&
+      value &&
+      parseFloat(value) > parseFloat(balance)
+    ) {
       return "Insufficient balance";
     }
     return undefined;
