@@ -10,20 +10,19 @@ import { BuySellToggle } from "../BuySellToggle/BuySellToggle";
 import { Divider } from "../shared/Divider/Divider";
 
 interface SwapFormProps {
-  /** How much money the user has */
+  /** Initial balance */
   balance: {
     btc: number;
     usd: number;
   };
-  /** Callback when balance changes */
-  onBalanceChange?: (newBalance: { btc: number; usd: number }) => void;
 }
 
 /**
  * Form for buying or selling Bitcoin
  * Shows the current exchange rate and lets you enter amounts
  */
-export function SwapForm({ balance, onBalanceChange }: SwapFormProps) {
+export function SwapForm({ balance: initialBalance }: SwapFormProps) {
+  const [balance, setBalance] = useState(initialBalance);
   const [isReversed, setIsReversed] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
   const {
@@ -40,7 +39,7 @@ export function SwapForm({ balance, onBalanceChange }: SwapFormProps) {
     resetFields,
     setIsSuccess,
     isLoadingRate,
-  } = useExchangeLogic({ balance, onBalanceChange });
+  } = useExchangeLogic({ balance, onBalanceChange: setBalance });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,28 +76,6 @@ export function SwapForm({ balance, onBalanceChange }: SwapFormProps) {
       }, 150);
     }, 150);
   };
-
-  // Update balances after a successful transaction
-  React.useEffect(() => {
-    if (isSuccess && onBalanceChange) {
-      const btcAmount = parseFloat(btcValue);
-      const usdAmount = parseFloat(usdValue);
-
-      if (!isNaN(btcAmount) && !isNaN(usdAmount)) {
-        const newBalance = {
-          btc:
-            exchangeMode === "buy"
-              ? balance.btc + btcAmount
-              : balance.btc - btcAmount,
-          usd:
-            exchangeMode === "buy"
-              ? balance.usd - usdAmount
-              : balance.usd + usdAmount,
-        };
-        onBalanceChange(newBalance);
-      }
-    }
-  }, [isSuccess, btcValue, usdValue, exchangeMode, balance, onBalanceChange]);
 
   const isFormValid = () => {
     if (!btcValue || !usdValue) return false;

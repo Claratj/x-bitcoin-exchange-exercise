@@ -1,5 +1,5 @@
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, screen, fireEvent, act } from "@testing-library/react";
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { SwapForm } from "./SwapForm";
 import { useExchangeLogic } from "../../hooks/useExchangeLogic";
@@ -218,5 +218,66 @@ describe("SwapForm", () => {
       "50000.00",
       "USD"
     );
+  });
+
+  describe("Balance updates", () => {
+    it("updates balance after successful buy transaction", async () => {
+      const onBalanceChange = vi.fn();
+      (useExchangeLogic as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+        {
+          ...mockExchangeLogic,
+          btcValue: "0.1",
+          usdValue: "5000",
+          executeExchange: () => {
+            onBalanceChange({
+              btc: mockBalance.btc + 0.1,
+              usd: mockBalance.usd - 5000,
+            });
+          },
+        }
+      );
+
+      render(<SwapForm balance={mockBalance} />);
+      const form = screen.getByRole("form");
+
+      await act(async () => {
+        fireEvent.submit(form);
+      });
+
+      expect(onBalanceChange).toHaveBeenCalledWith({
+        btc: mockBalance.btc + 0.1,
+        usd: mockBalance.usd - 5000,
+      });
+    });
+
+    it("updates balance after successful sell transaction", async () => {
+      const onBalanceChange = vi.fn();
+      (useExchangeLogic as unknown as ReturnType<typeof vi.fn>).mockReturnValue(
+        {
+          ...mockExchangeLogic,
+          exchangeMode: "sell",
+          btcValue: "0.1",
+          usdValue: "5000",
+          executeExchange: () => {
+            onBalanceChange({
+              btc: mockBalance.btc - 0.1,
+              usd: mockBalance.usd + 5000,
+            });
+          },
+        }
+      );
+
+      render(<SwapForm balance={mockBalance} />);
+      const form = screen.getByRole("form");
+
+      await act(async () => {
+        fireEvent.submit(form);
+      });
+
+      expect(onBalanceChange).toHaveBeenCalledWith({
+        btc: mockBalance.btc - 0.1,
+        usd: mockBalance.usd + 5000,
+      });
+    });
   });
 });
