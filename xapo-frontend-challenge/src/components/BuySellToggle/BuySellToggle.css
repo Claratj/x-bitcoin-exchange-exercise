@@ -1,0 +1,138 @@
+.toggle-container {
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Box model */
+  padding: 0.14rem;
+  border: 1px solid var(--divider-color);
+  border-radius: 20px;
+
+  /* Visual */
+  background: var(--primary-bg);
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-switch {
+  /* Layout */
+  position: relative;
+  display: inline-block;
+
+  /* Box model */
+  width: 140px;
+  height: 36px;
+}
+
+.toggle-switch input {
+  /* Layout */
+  display: none;
+}
+
+.slider {
+  /* Layout */
+  position: absolute;
+
+  /* Box model */
+  padding: 3px;
+  border-radius: 20px;
+
+  /* Visual */
+  background: var(--card-bg);
+
+  /* Motion */
+  transition: all 0.3s ease;
+  cursor: pointer;
+  inset: 0;
+}
+
+/* "Sell" Text */
+.slider::after {
+  /* Layout */
+  position: absolute;
+  top: 50%;
+  right: 0;
+  z-index: 1;
+
+  /* Box model */
+  width: 70px;
+
+  /* Visual */
+  color: var(--text-primary);
+
+  /* Typography */
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+
+  /* Motion */
+  transition: color 0.3s ease;
+  transform: translateY(-50%);
+  content: "Sell";
+}
+
+/* "Buy" Text */
+.slider::before {
+  /* Layout */
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: 1;
+
+  /* Box model */
+  width: 70px;
+
+  /* Visual */
+  color: var(--text-secondary);
+
+  /* Typography */
+  font-size: 14px;
+  font-weight: 500;
+  text-align: center;
+
+  /* Motion */
+  transition: color 0.3s ease;
+  transform: translateY(-50%);
+  content: "Buy";
+}
+
+.slider .toggle-pill {
+  /* Layout */
+  position: absolute;
+  top: 3px;
+  right: 3px;
+
+  /* Box model */
+  width: 65px;
+  height: 30px;
+  border-radius: 20px;
+
+  /* Visual */
+  background: var(--accent-color);
+  box-shadow: var(--shadow-md);
+
+  /* Motion */
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+input:checked + .slider .toggle-pill {
+  /* Motion */
+  transform: translateX(-69px);
+}
+
+input:checked + .slider::after {
+  /* Visual */
+  color: var(--text-secondary);
+}
+
+input:checked + .slider::before {
+  /* Visual */
+  color: var(--text-primary);
+}
+
+/* Hover effects */
+.slider:hover .toggle-pill {
+  /* Visual */
+  background: var(--accent-hover);
+  box-shadow: var(--shadow-lg);
+}
