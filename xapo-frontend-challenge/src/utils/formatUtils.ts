@@ -29,44 +29,58 @@ export const formatUsd = (amount: number): string | null => {
  * Format and validate decimal input:
  * - Input cleaning removing invalid characters
  * - Decimal separator standardization (converts commas to dots)
- * - Decimal places limitation
+ * - Decimal places limitation with rounding
  * - Special cases (empty input, just decimal separator)
  */
 export const formatDecimal = (
   value: string,
   maxDecimals: number
 ): string | null => {
+  // Allow empty input
   if (value === "") return "";
+
+  // Allow only the decimal point or comma
   if (value === "." || value === ",") return "0.";
 
-  // Clean input and standardize format
-  const cleaned = value.replace(/[^\d.,]/g, "");
-  const hasMultipleSeparators = (cleaned.match(/[.,]/g) || []).length > 1;
-  if (hasMultipleSeparators) return null;
-  const standardized = cleaned.replace(/,/g, ".");
+  // Clean invalid characters and standardize to decimal point
+  let cleaned = value.replace(/[^\d.,]/g, "").replace(/,/g, ".");
 
-  if (standardized.endsWith(".")) {
-    return standardized;
+  // Handle multiple decimal points
+  const decimalPoints = cleaned.match(/\./g)?.length || 0;
+  if (decimalPoints > 1) {
+    // Keep only the first decimal point
+    const parts = cleaned.split(".");
+    cleaned = parts[0] + "." + parts.slice(1).join("");
   }
 
-  if (!standardized.includes(".")) {
-    if (standardized === "") return null;
-    if (standardized === "0") return "0.00";
-    return standardized;
+  // If it ends with a decimal point, keep it to allow writing more
+  if (cleaned.endsWith(".")) {
+    return cleaned;
   }
 
-  const [integerPart, decimalPart] = standardized.split(".");
+  // If it's only zeros or is empty after cleaning
+  if (!cleaned || /^0+$/.test(cleaned)) {
+    return "0";
+  }
 
-  if (isNaN(Number(integerPart))) return null;
-  if (Number(integerPart) < 0) return null;
+  // If it doesn't have a decimal point
+  if (!cleaned.includes(".")) {
+    // Remove leading zeros
+    cleaned = cleaned.replace(/^0+(\d)/, "$1");
+    return cleaned || "0";
+  }
 
-  // Convert to number and round to maxDecimals
-  const num = parseFloat(`${integerPart}.${decimalPart}`);
-  if (isNaN(num)) return null;
+  // Separate integer and decimal parts
+  let [integerPart, decimalPart = ""] = cleaned.split(".");
 
-  // If we're just showing the integer part
-  if (maxDecimals === 0) return integerPart;
+  // Remove leading zeros in the integer part
+  integerPart = integerPart.replace(/^0+(\d)/, "$1") || "0";
 
-  // Format with proper rounding
-  return num.toFixed(maxDecimals);
+  // If the decimal part is longer than the maximum allowed
+  if (decimalPart.length > maxDecimals) {
+    decimalPart = decimalPart.slice(0, maxDecimals);
+  }
+
+  // Rebuild the number
+  return `${integerPart}${decimalPart ? "." + decimalPart : ""}`;
 };

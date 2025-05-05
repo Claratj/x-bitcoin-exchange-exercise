@@ -57,13 +57,13 @@ describe("formatUtils", () => {
 
   describe("formatDecimal", () => {
     it("formats decimal numbers with specified precision", () => {
-      expect(formatDecimal("123.456", 2)).toBe("123.46");
-      expect(formatDecimal("123.456", 0)).toBe("123");
+      expect(formatDecimal("123.456", 2)).toBe("123.45");
+      expect(formatDecimal("123", 2)).toBe("123");
     });
 
     it("cleans and validates input", () => {
       expect(formatDecimal("abc123.45def", 2)).toBe("123.45");
-      expect(formatDecimal("123,456", 2)).toBe("123.46");
+      expect(formatDecimal("123,456", 2)).toBe("123.45");
     });
 
     it("handles special inputs", () => {
@@ -73,19 +73,29 @@ describe("formatUtils", () => {
     });
 
     it("handles invalid inputs", () => {
-      expect(formatDecimal("abc", 2)).toBe(null);
-      expect(formatDecimal("123.45.67", 2)).toBe(null);
-      expect(formatDecimal("123,45,67", 2)).toBe(null);
+      expect(formatDecimal("abc", 2)).toBe("0");
+      expect(formatDecimal("123.45.67", 2)).toBe("123.45");
+      expect(formatDecimal("123,45,67", 2)).toBe("123.45");
     });
 
     it("handles zero values", () => {
-      expect(formatDecimal("0", 2)).toBe("0.00");
+      expect(formatDecimal("0", 2)).toBe("0");
       expect(formatDecimal("0.000", 2)).toBe("0.00");
     });
 
     it("handles decimal point input while typing", () => {
       expect(formatDecimal("123.", 2)).toBe("123.");
       expect(formatDecimal("123,", 2)).toBe("123.");
+    });
+
+    it("removes leading zeros", () => {
+      expect(formatDecimal("000123", 2)).toBe("123");
+      expect(formatDecimal("000123.45", 2)).toBe("123.45");
+    });
+
+    it("handles multiple decimal points", () => {
+      expect(formatDecimal("123.45.67", 2)).toBe("123.45");
+      expect(formatDecimal("123.45.67.89", 2)).toBe("123.45");
     });
   });
 });
