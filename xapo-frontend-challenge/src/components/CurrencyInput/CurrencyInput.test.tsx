@@ -146,8 +146,48 @@ describe("CurrencyInput", () => {
     expect(input).toHaveAttribute("placeholder", "0.00");
   });
 
-  it("shows error for insufficient balance", () => {
-    render(<CurrencyInput {...defaultProps} value="2000" />);
+  it("shows error for insufficient balance in buy mode - USD input", () => {
+    render(
+      <CurrencyInput
+        {...defaultProps}
+        currency="USD"
+        exchangeMode="buy"
+        isBaseCurrency={false}
+        value="2000"
+        balance="1000"
+        label="USD Amount"
+      />
+    );
     expect(screen.getByText("Insufficient balance")).toBeInTheDocument();
+  });
+
+  it("shows error for insufficient balance in sell mode - BTC input", () => {
+    render(
+      <CurrencyInput
+        {...defaultProps}
+        currency="BTC"
+        exchangeMode="sell"
+        isBaseCurrency={true}
+        value="20"
+        balance="10"
+        label="BTC Amount"
+      />
+    );
+    expect(screen.getByText("Insufficient balance")).toBeInTheDocument();
+  });
+
+  it("does not show insufficient balance error when amount is within balance", () => {
+    render(
+      <CurrencyInput
+        {...defaultProps}
+        currency="USD"
+        exchangeMode="buy"
+        isBaseCurrency={false}
+        value="500"
+        balance="1000"
+        label="USD Amount"
+      />
+    );
+    expect(screen.queryByText("Insufficient balance")).not.toBeInTheDocument();
   });
 });
