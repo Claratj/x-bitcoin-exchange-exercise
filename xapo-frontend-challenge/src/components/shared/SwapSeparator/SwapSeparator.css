@@ -7,7 +7,7 @@
   /* Box model */
   width: 40px;
   height: 40px;
-  padding: var(--spacing-md);
+  padding: 14px;
   border: 1px solid var(--divider-color);
   border-radius: 50%;
 
@@ -48,11 +48,4 @@
 .swap-separator:hover .swap-arrows {
   /* Visual */
   stroke: var(--accent-color);
-}
-
-@media (width >= 768px) {
-  .swap-separator {
-    /* Box model */
-    margin: 0 var(--spacing-md);
-  }
 }
