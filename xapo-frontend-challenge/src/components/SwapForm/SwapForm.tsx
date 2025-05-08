@@ -134,7 +134,7 @@ export function SwapForm({ balance: initialBalance }: SwapFormProps) {
   const getBtcBalance = () => formattedBtcBalance;
   const getUsdBalance = () => formattedUsdBalance;
 
-  // Determinar qué balance mostrar en cada input según el modo y el orden
+  // Determine which balance to show in each input based on mode and order
   const getFirstInputBalance = () => {
     if (isReversed) {
       return getUsdBalance();
